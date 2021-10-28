@@ -6,9 +6,9 @@
  const App = () => {
  return (
     <div className="ui container comments">
-     <CommentDetail />
-     <CommentDetail />
-     <CommentDetail />
+     <CommentDetail author="sam"  timeAgo="yesterday at 2:30AM" blogPost="this looks great" avatar={faker.image.avatar()} />
+     <CommentDetail author="john" timeAgo="today at 5:45pm"  blogPost="great post" avatar={faker.image.avatar()}/>
+     <CommentDetail  author="sara" timeAgo="today at 12:10pm" blogPost="interesting post" avatar={faker.image.avatar()}/>
    </div>
 
  );
