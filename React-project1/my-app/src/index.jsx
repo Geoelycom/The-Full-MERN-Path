@@ -32,5 +32,4 @@ return (
 
 //take the react component and display it on the screen
 
-ReactDOM.render(
-<App />, document.querySelector('#root'));
+ReactDOM.render(<App />, document.querySelector('#root'));
