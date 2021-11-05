@@ -6,24 +6,22 @@ import React from 'react';
     this.state = {
       count: 0
     };
-    // Change code below this line
-this.reset = this.reset.bind(this)
-this.increment = this.increment.bind(this)
-this.decrement = this.decrement.bind(this)
-    // Change code above this line
+    
+    this.reset = this.reset.bind(this)
+    this.increment = this.increment.bind(this)
+    this.decrement = this.decrement.bind(this)
   }
-  // Change code below this line
-reset(){
-  this.setState(state => ({
-    state: state.count = 0
-  }))
-}
+    reset(){
+      this.setState(state => ({
+        state: state.count = 0
+      }))
+    }
 
-increment() {
-this.setState(state => ({
-state: state.count++
-}))
-}
+    increment() {
+    this.setState(state => ({
+    state: state.count++
+    }))
+    }
 
 decrement(){
 this.setState(state => ({
@@ -31,7 +29,6 @@ state: state.count--
 }))
 }
 
-// Change code above this line
 render() {
   return (
     <div>
