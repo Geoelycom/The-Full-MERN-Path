@@ -6,6 +6,7 @@ import { ApprovalCard } from "./ApprovalCard";
 import { Season } from "./Season";
 import { Counter } from "./counter";
 import { ControlledInput } from "./controlledInput";
+import { GameOfChance } from "./GuessingGame";
 
 const App = () => {
 return (
@@ -26,6 +27,7 @@ return (
   <Season/>
   <Counter />
   <ControlledInput />
+  <GameOfChance />
     
 </div>
 
