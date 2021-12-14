@@ -1,3 +1,4 @@
+import React from "react";
 import Issuefilter from "./IssueFilter";
 import IssueTable from "./IssueTable";
 import IssueAdd from "./IssueAdd";
@@ -13,7 +14,7 @@ export default class IssueList extends React.Component{
           <IssueTable />
           <hr/>
           <IssueAdd />
-      </React.Fragment> 
+      </React.Fragment>
     )
   }
 }
