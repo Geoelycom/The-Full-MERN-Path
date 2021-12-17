@@ -1,0 +1,27 @@
+{
+  "name": "api-server",
+  "version": "1.0.0",
+  "description": "the sever that runs the Issue-tracker application",
+  "main": "Api-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -w Api-server.js -e js, graphql",
+    "compile": "babel src --out-dir public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Geoelycom/The-Full-MERN-Path.git"
+  },
+  "author": "Elyan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Geoelycom/The-Full-MERN-Path/issues"
+  },
+  "homepage": "https://github.com/Geoelycom/The-Full-MERN-Path#readme",
+  "dependencies": {
+    "apollo-server-express": "^2.25.3",
+    "express": "^4.17.1",
+    "graphql": "^0.13.2",
+    "nodemon": "^2.0.15"
+  }
+}
