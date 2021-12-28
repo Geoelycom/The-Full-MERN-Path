@@ -18,7 +18,6 @@ const issueDB = [
   }
 ]
 
-
 const resolvers = {
   Query: {
     about: () => aboutMessage,
@@ -44,8 +43,8 @@ const server = new ApolloServer({
 
 const app  = express()
 app.use(express.static('public'))
-server.applyMiddleware({app, path: '/graphql' })
+server.applyMiddleware({ app, path: '/graphql' })
 
-app.listen(4000, () => {
-  console.log('server started on port 4000')
+app.listen(3000, () => {
+  console.log('server started on port 3000')
 })
