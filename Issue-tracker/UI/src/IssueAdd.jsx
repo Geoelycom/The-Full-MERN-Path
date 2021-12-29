@@ -5,7 +5,7 @@
   render(){
     return (
       <div>
-        <p>this is a placeholder for the Issue Add</p>
+        <p>this is a placeholder for a form to add an Issue</p>
       </div>
     )
   }
