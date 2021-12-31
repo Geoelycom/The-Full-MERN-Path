@@ -6,8 +6,8 @@ import IssueAdd from "./IssueAdd";
 
 
 export default class IssueList extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       issues: []
     }
@@ -39,8 +39,8 @@ export default class IssueList extends React.Component {
 
       const result = await response.json();
       this.setState({
-        issues: result.data.IssueList
-      });
+        issues: result.data.issueList
+      })
     }
 
     createIssue(issue){
@@ -55,25 +55,16 @@ export default class IssueList extends React.Component {
 
   render(){
     return (
-      <React.Fragment>
-        <h1>Issue Tracker</h1>
-          <Issuefilter />
+       <React.Fragment>
+         <h1>Issue Tracker</h1>
+           <Issuefilter />
           <hr/>
           <IssueTable issues={this.state.issues} />
-          <hr/>
-          <IssueAdd  createIssue={this.createIssue}/>
-      </React.Fragment>
+           <hr/>
+           <IssueAdd  createIssue={this.createIssue}/>
+       </React.Fragment>
     )
   }
 }
-
-
-
-
-
-
-
-
-
 
 
