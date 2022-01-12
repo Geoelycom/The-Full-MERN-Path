@@ -4,6 +4,11 @@ import Issuefilter from "./IssueFilter";
 import IssueTable from "./IssueTable";
 import IssueAdd from "./IssueAdd";
 
+const dateRegex = new RegExp('^\\d\\d\\d\\d-\\d\\d-\\d\\d');
+function jsonDateReviver(key, value){
+  if (dateRegex.test(value)) return new Date(value).toDateString();
+    return value;
+  }
 
 export default class IssueList extends React.Component {
   constructor(props){
@@ -37,7 +42,9 @@ export default class IssueList extends React.Component {
         body: JSON.stringify({query})
       });
 
-      const result = await response.json();
+      //const result = await response.json();
+      const body = await response.text()
+      const result = JSON.parse(body, jsonDateReviver)
       this.setState({
         issues: result.data.issueList
       })
@@ -45,7 +52,7 @@ export default class IssueList extends React.Component {
 
     createIssue(issue){
       issue.id = this.state.issues.length + 1;
-      issue.created = new Date().toString();
+      issue.created = new Date().toDateString();
       const newIssueList = this.state.issues.slice();
       newIssueList.push(issue)
       this.setState({
