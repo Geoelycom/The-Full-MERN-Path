@@ -45,7 +45,7 @@ export default class IssueList extends React.Component {
 
     createIssue(issue){
       issue.id = this.state.issues.length + 1;
-      issue.created = new Date();
+      issue.created = new Date().toString();
       const newIssueList = this.state.issues.slice();
       newIssueList.push(issue)
       this.setState({
