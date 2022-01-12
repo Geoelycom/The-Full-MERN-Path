@@ -1,9 +1,8 @@
  import React from "react";
- //import PropTypes from "prop-types";
- 
+ import PropTypes from "prop-types";
  export default class IssueAdd extends React.Component{
   constructor(){
-    super()
+  super()
   this.handleSubmit = this.handleSubmit.bind(this)
 }
 
@@ -15,7 +14,7 @@
     title: form.title.value,
     status: 'New',
     effort: 5,
-    due: new Date().toString()
+    due: new Date().toDateString()
   }
   this.props.createIssue(issue);
   form.owner.value = "",
