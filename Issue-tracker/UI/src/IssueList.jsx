@@ -6,7 +6,7 @@ import IssueAdd from "./IssueAdd";
 
 const dateRegex = new RegExp('^\\d\\d\\d\\d-\\d\\d-\\d\\d');
 function jsonDateReviver(key, value){
-  if (dateRegex.test(value)) return new Date(value).toDateString();
+  if (dateRegex.test(value)) return new Date(value)
     return value;
   }
 
@@ -42,7 +42,6 @@ export default class IssueList extends React.Component {
         body: JSON.stringify({query})
       });
 
-      //const result = await response.json();
       const body = await response.text()
       const result = JSON.parse(body, jsonDateReviver)
       this.setState({
@@ -50,14 +49,23 @@ export default class IssueList extends React.Component {
       })
     }
 
-    createIssue(issue){
-      issue.id = this.state.issues.length + 1;
-      issue.created = new Date().toDateString();
-      const newIssueList = this.state.issues.slice();
-      newIssueList.push(issue)
-      this.setState({
-        issues: newIssueList
+    async createIssue(issue){
+      const query = ` mutation {
+        issueAdd(issue: {
+          title: "${issue.title}",
+          owner: "${issue.owner}",
+          due: "${issue.due.toISOString()}"
+        }){
+          id
+        }
+      }`;
+
+      const response = await fetch('http://localhost:3000/graphql',{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({query})
       });
+      this.loadData()
     }
 
   render(){
