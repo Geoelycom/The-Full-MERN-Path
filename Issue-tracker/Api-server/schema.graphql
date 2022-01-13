@@ -1,3 +1,5 @@
+scalar GraphQLDate
+
 " Toned down Issue, used as input, withouts server generated values "
 input IssueInputs{
    title: String!
@@ -9,7 +11,7 @@ input IssueInputs{
    due: GraphQLDate
    }
 
-scalar GraphQLDate
+#### Top level declarations
 type Query {
       about: String!
       issueList: [Issue!]!

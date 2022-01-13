@@ -1,10 +1,12 @@
 const fs = require('fs')
 const express = require('express')
 const { GraphQLScalarType } = require ('graphql')
-const { ApolloServer, gql } =  require("apollo-server-express");
+const { ApolloServer } =  require("apollo-server-express");
 const { Kind } = require('graphql/language')
-let aboutMessage = "Issue Tracker API v1.0";
 
+
+
+let aboutMessage = "Issue Tracker API v1.0";
 
 const GraphQLDate = new GraphQLScalarType({
   name: 'GraphQLDate',
@@ -56,13 +58,12 @@ function setAboutMessage( _, { message }){
 function issueAdd (_, { issue }){
  issue.created = new Date();
  issue.id = issueDB.length + 1;
-  if(issue.status == undefined){
-    issue.status = 'New'
+  if(issue.status == undefined) {
+    issue.status = 'New';
+    issueDB.push(issue);
+    }
+    return issue;
   }
-  issueDB.push(issue);
-  return issue;
- }
-
 
 function issueList(){
   return issueDB;
