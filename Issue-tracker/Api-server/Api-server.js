@@ -44,6 +44,7 @@ const resolvers = {
     about: () => aboutMessage,
     issueList,
   },
+
   Mutation: {
     setAboutMessage,
     issueAdd,
