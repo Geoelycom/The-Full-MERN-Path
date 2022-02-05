@@ -1,12 +1,19 @@
 scalar GraphQLDate
 
+"enum Type for Validation"
+enum StatusType {
+     New
+     Assigned
+     Fixed
+     Closed
+     }
+
 " Toned down Issue, used as input, withouts server generated values "
 input IssueInputs{
    title: String!
 "optional, if not supplied, will be set to 'new' "
-   status: String
+   status: StatusType = New
    owner:  String
-   status: String
    effort: Int
    due: GraphQLDate
    }
@@ -26,7 +33,7 @@ type Mutation {
 type Issue {
       id: Int!
       title: String!
-      status: String!
+      status: StatusType!
       owner: String
       effort: Int
       created: GraphQLDate!
