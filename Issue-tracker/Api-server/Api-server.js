@@ -130,7 +130,7 @@ const app = express()
 app.use(express.static('public'))
 server.applyMiddleware({app, path: '/graphql' })
 
-//Using an IIFE  to first connect to the database keeps throwing an error so i had to wrap the async function inside the app.listen as a callback hence running our synchronous activities
+//Using an IIFE  to connect to the database would throw an error  so i had to wrap the async function inside the app.listen as a callback hence running our synchronous activities
 
 app.listen(3000, async () => {
   try {
