@@ -2,8 +2,24 @@ const fs = require('fs')
 const express = require('express')
 const { GraphQLScalarType } = require('graphql')
 const { ApolloServer, UserInputError } = require("apollo-server-express");
-const { Kind } = require('graphql/language')
+const { Kind } = require('graphql/language');
+const { MongoClient } = require ('mongodb');
+require('dotenv').config();
 
+const uri = "mongodb+srv://Elyan:"+ process.env.DB_URI +"@userproifle.g0qgd.mongodb.net/IssueDatabase?retryWrites=true&w=majority";
+
+/*
+ * Run using the mongo shell.for remote databases, ensure that the
+ * the local connection string is supplied in the command line. for example
+ * Localhost:
+ * mongo Issuetracker Api-server/scripts/init.mongo.js
+ * Atlas:
+ * mongo mongodb+srv://user:pwd@xxx.mongodb.net/Issuetracker Api-server/scripts/init.mongo.js
+ * MLab:
+ * mongo mongodb://user:pwd@xxx.mlab.com:33533/Issuetracker Api-server/scripts/init.mongo.js
+ */
+
+let db;
 
 let aboutMessage = "Issue Tracker API v1.0";
 
@@ -41,7 +57,8 @@ function validateIssue(issue) {
   }
 }
 
-const issueDB = [{
+const issueDB = [
+  {
     id: 1,
     status: 'New',
     owner: 'Elyan',
@@ -79,6 +96,13 @@ function setAboutMessage(_, { message }) {
   return aboutMessage = message;
 }
 
+
+async function issueList() {
+  const issues =  await db.collection('issues').find({}).toArray()
+  return issues;
+
+}
+
 function issueAdd(_, { issue }) {
   validateIssue(issue);
   issue.created = new Date();
@@ -87,8 +111,11 @@ function issueAdd(_, { issue }) {
   return issue;
 }
 
-function issueList() {
-  return issueDB;
+async function connectToDb(){
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  await client.connect();
+  console.log('connected to MongoDb at', uri);
+  db = client.db();
 }
 
 const server = new ApolloServer({
@@ -99,12 +126,17 @@ const server = new ApolloServer({
     return error;
   }
 });
-
 const app = express()
 app.use(express.static('public'))
 server.applyMiddleware({app, path: '/graphql' })
 
-app.listen(3000, () => {
-  console.log('server started on port 3000')
-})
+//Using an IIFE  to first connect to the database keeps throwing an error so i had to wrap the async function inside the app.listen as a callback hence running our synchronous activities
 
+app.listen(3000, async () => {
+  try {
+   await connectToDb()
+   console.log('App started at port 3000')
+  } catch (err){
+   console.log('Error:', err)
+  }
+})
