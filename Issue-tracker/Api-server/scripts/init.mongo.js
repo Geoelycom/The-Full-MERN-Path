@@ -8,7 +8,6 @@
  * MLab:
  * mongo mongodb://user:pwd@xxx.mlab.com:33533/Issuetracker Api-server/scripts/init.mongo.js
  */
-// mongosh mongodb+srv://Elyan:*****@userproifle.g0qgd.mongodb.net/IssueDatabase init.mongo.js 
 db.issues.deleteMany({})
 
 const issueDB = [{
