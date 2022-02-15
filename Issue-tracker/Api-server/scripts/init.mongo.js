@@ -7,10 +7,7 @@
  * mongo mongodb+srv://user:pwd@xxx.mongodb.net/Issuetracker Api-server/scripts/init.mongo.js
  * MLab:
  * mongo mongodb://user:pwd@xxx.mlab.com:33533/Issuetracker Api-server/scripts/init.mongo.js
- * 
  */
-
-db.issues.remove({})
 
 const issueDB = [{
   id: 1,
@@ -31,4 +28,4 @@ const issueDB = [{
   due: new Date('2021-12-30'),
   title: 'Missing bottom border on panel',
 }
-]
+
