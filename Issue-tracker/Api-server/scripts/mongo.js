@@ -1,7 +1,6 @@
 const { MongoClient } = require('mongodb');
 //const mongoose = require( 'mongoose')
 require('dotenv').config()
-const uri = "mongodb+srv://Elyan:"+ process.env.DB_URI +"@userproifle.g0qgd.mongodb.net/IssueDatabase?retryWrites=true&w=majority";
 
 function testWithCallbacks(callback) {
   console.log('\n--- testWithCallbacks ---');
