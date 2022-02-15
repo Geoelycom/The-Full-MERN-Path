@@ -28,4 +28,4 @@ const issueDB = [{
   due: new Date('2021-12-30'),
   title: 'Missing bottom border on panel',
 }
-
+]
