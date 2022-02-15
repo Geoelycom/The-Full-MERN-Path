@@ -9,6 +9,8 @@
  * mongo mongodb://user:pwd@xxx.mlab.com:33533/Issuetracker Api-server/scripts/init.mongo.js
  */
 
+db.issues.deleteMany({})
+
 const issueDB = [{
   id: 1,
   status: 'New',
@@ -29,3 +31,14 @@ const issueDB = [{
   title: 'Missing bottom border on panel',
 }
 ]
+
+db.issues.insertMany(issueDB);
+const count = db.issues.countDocuments()
+print('inserted', count, 'issues');
+
+
+db.issues.createIndex({id: 1}, {unique: true })
+db.issues.createIndex({ status: 1 })
+db.issues.createIndex({ owner : 1 })
+db.issues.createIndex({ created: 1 })
+
