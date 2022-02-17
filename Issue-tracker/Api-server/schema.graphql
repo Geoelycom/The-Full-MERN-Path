@@ -29,10 +29,9 @@ type Mutation {
       issueAdd(issue: IssueInputs !) : Issue!
       }
 
-
 type Issue {
-      id: Int!
       _id: ID!
+      id: Int!
       title: String!
       status: StatusType!
       owner: String
