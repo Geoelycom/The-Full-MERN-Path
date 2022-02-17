@@ -57,27 +57,6 @@ function validateIssue(issue) {
   }
 }
 
-const issueDB = [
-  {
-    id: 1,
-    status: 'New',
-    owner: 'Elyan',
-    effort: 5,
-    created: new Date('2021-12-21'),
-    due: undefined,
-    title: 'Error in console when clicking Add',
-  },
-
-  {
-    id: 2,
-    status: 'Assigned',
-    owner: 'Uduak',
-    effort: 25,
-    created: new Date('2021-12-22'),
-    due: new Date('2021-12-30'),
-    title: 'Missing bottom border on panel',
-  }
-]
 
 const resolvers = {
   Query: {
@@ -96,19 +75,28 @@ function setAboutMessage(_, { message }) {
   return aboutMessage = message;
 }
 
-
 async function issueList() {
   const issues =  await db.collection('issues').find({}).toArray()
   return issues;
-
 }
 
-function issueAdd(_, { issue }) {
+async function getNextSequence(name){
+  const result = await db.collection('counters').findOneAndUpdate(
+    {_id: name },
+    { $inc: { current: 1 }},
+    { returnNewDocument: false },
+    );
+    return result.value.current
+  }
+
+ async function issueAdd(_, { issue }) {
   validateIssue(issue);
   issue.created = new Date();
-  issue.id = issueDB.length + 1;
-  issueDB.push(issue);
-  return issue;
+  issue.id = await getNextSequence('issues');
+
+  const result = await db.collection('issues').insertOne(issue);
+  const savedIssue = await db.collection('issues').findOne({ _id: result.insertedId })
+  return savedIssue;
 }
 
 async function connectToDb(){
@@ -117,6 +105,7 @@ async function connectToDb(){
   console.log('connected to MongoDb at', uri);
   db = client.db();
 }
+
 
 const server = new ApolloServer({
   typeDefs: fs.readFileSync('../Api-server/schema.graphql', 'utf-8'),
