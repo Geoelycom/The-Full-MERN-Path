@@ -9,7 +9,10 @@
  * mongo mongodb://user:pwd@xxx.mlab.com:33533/Issuetracker Api-server/scripts/init.mongo.js
  */
 
-db.issues.deleteMany({})
+/* global db print */
+/* eslint  no-restricted-globals: "off" */
+
+db.issues.deleteMany({});
 
 const issueDB = [{
   id: 1,
@@ -29,20 +32,19 @@ const issueDB = [{
   created: new Date('2021-12-22'),
   due: new Date('2021-12-30'),
   title: 'Missing bottom border on panel',
-}
-]
+},
+];
 
 db.issues.insertMany(issueDB);
-const count = db.issues.countDocuments()
+const count = db.issues.countDocuments();
 print('inserted', count, 'issues');
 
-db.counters.deleteMany({ _id: 'issues'});
+db.counters.deleteMany({ _id: 'issues' });
 db.counters.insertOne({ _id: 'issues', current: count });
-const countIssues = db.counters.countDocuments()
-print('Inserted', countIssues, 'counters' )
+const countIssues = db.counters.countDocuments();
+print('Inserted', countIssues, 'counters');
 
-db.issues.createIndex({id: 1 }, { unique: true })
-db.issues.createIndex({ status: 1 })
-db.issues.createIndex({ owner : 1 })
-db.issues.createIndex({ created: 1 })
-
+db.issues.createIndex({ id: 1 }, { unique: true });
+db.issues.createIndex({ status: 1 });
+db.issues.createIndex({ owner: 1 });
+db.issues.createIndex({ created: 1 });
