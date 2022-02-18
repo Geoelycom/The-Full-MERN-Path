@@ -5,7 +5,7 @@
   "main": "Api-server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -w Api-server.js -e js, graphql",
+    "start": "nodemon -w . -w .env Api-server.js -e js, graphql",
     "compile": "babel src --out-dir public"
   },
   "repository": {
