@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon -w . -w .env Api-server.js -e js, graphql",
+    "lint": "eslint .",
     "compile": "babel src --out-dir public"
   },
   "repository": {
@@ -26,5 +27,10 @@
     "mongodb": "^3.7.3",
     "mongoose": "^6.2.1",
     "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.25.4"
   }
 }
