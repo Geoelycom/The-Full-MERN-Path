@@ -1,13 +1,16 @@
 const fs = require('fs')
+require('dotenv').config();
 const express = require('express')
 const { GraphQLScalarType } = require('graphql')
 const { ApolloServer, UserInputError } = require("apollo-server-express");
 const { Kind } = require('graphql/language');
 const { MongoClient } = require ('mongodb');
-require('dotenv').config();
 
-const uri = "mongodb+srv://Elyan:"+ process.env.DB_URI +"@userproifle.g0qgd.mongodb.net/IssueDatabase?retryWrites=true&w=majority";
+const uri = process.env.DB_URI || 'mongodb+srv://Elyan:****@userproifle.g0qgd.mongodb.net/IssueDatabase?retryWrites=true&w=majority';
+const port = process.env.API_PORT;
 
+const enableCors = (process.env.ENABLE_CORS || 'true' ) == 'true';
+console.log('CORS setting:', enableCors)
 /*
  * Run using the mongo shell.for remote databases, ensure that the
  * the local connection string is supplied in the command line. for example
@@ -56,7 +59,6 @@ function validateIssue(issue) {
     throw new UserInputError('Invalid input(s)', { errors })
   }
 }
-
 
 const resolvers = {
   Query: {
@@ -117,14 +119,14 @@ const server = new ApolloServer({
 });
 const app = express()
 app.use(express.static('public'))
-server.applyMiddleware({app, path: '/graphql' })
+server.applyMiddleware({ app, path: '/graphql'})
 
 //Using an IIFE  to connect to the database would throw an error  so i had to wrap the async function inside the app.listen as a callback hence running our synchronous activities
 
-app.listen(3000, async () => {
+app.listen(port, async () => {
   try {
    await connectToDb()
-   console.log('App started at port 3000')
+   console.log(`API started on port ${port}`)
   } catch (err){
    console.log('Error:', err)
   }

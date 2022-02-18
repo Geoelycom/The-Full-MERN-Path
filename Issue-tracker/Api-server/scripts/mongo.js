@@ -1,7 +1,7 @@
-const { MongoClient } = require('mongodb');
 require('dotenv').config()
+const { MongoClient } = require('mongodb');
 
-const uri = "mongodb+srv://Elyan:"+ process.env.DB_URI +"@userproifle.g0qgd.mongodb.net/IssueDatabase?retryWrites=true&w=majority";
+const uri = process.env.DB_URI || 'mongodb+srv://Elyan:******@userproifle.g0qgd.mongodb.net/IssueDatabase?retryWrites=true&w=majority';
 
 function testWithCallbacks(callback) {
   console.log('\n--- testWithCallbacks ---');
@@ -38,7 +38,6 @@ function testWithCallbacks(callback) {
     });
   });
 }
-
 
 async function testWithAsync(){
   console.log('\n --- testWithAsync ---');
