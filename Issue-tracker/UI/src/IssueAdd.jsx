@@ -1,7 +1,3 @@
-/* eslint "react/react-in-jsx-scope": "off" */
-/* eslint "react/jsx-no-undef": "off" */
-/* eslint "react/no-multi-comp": "off" */
-/* eslint "no-alert": "off" */
 import React from 'react';
 // import PropTypes from 'prop-types';
 
