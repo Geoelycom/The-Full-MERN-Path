@@ -5,6 +5,7 @@
   },
   "rules": {
     "react/prop-types": "off",
-    "react/destructuring-assignment": "never"
+    "react/destructuring-assignment": "never",
+    "import/extensions": [ "error", "always", { "ignorePackages": "true"}]
   }
 }
