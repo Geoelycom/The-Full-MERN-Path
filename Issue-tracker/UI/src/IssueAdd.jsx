@@ -2,7 +2,6 @@
 /* eslint "react/jsx-no-undef": "off" */
 /* eslint "react/no-multi-comp": "off" */
 /* eslint "no-alert": "off" */
-/* //globals React ReactDOM PropTypes */
 import React from 'react';
 // import PropTypes from 'prop-types';
 
