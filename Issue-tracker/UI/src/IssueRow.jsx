@@ -11,6 +11,7 @@ function IssueRow(props) {
       <td>{issue.effort}</td>
       <td>{issue.due ? issue.due.toDateString() : ''}</td>
       <td>{issue.title}</td>
+      <td><a href={`/#/edit/${issue.id}`}>Edit</a></td>
     </tr>
   );
 }

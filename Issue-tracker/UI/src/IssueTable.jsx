@@ -1,5 +1,5 @@
 import React from 'react';
-import IssueRow from './IssueRow';
+import IssueRow from './IssueRow.jsx';
 
 function IssueTable(props) {
   const issueRows = props.issues.map(issue => (
@@ -16,6 +16,7 @@ function IssueTable(props) {
           <th>Effort</th>
           <th>Due Date</th>
           <th>Title</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
