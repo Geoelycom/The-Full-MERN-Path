@@ -4,7 +4,11 @@ export default class Issuefilter extends React.Component {
   render() {
     return (
       <div>
-        <p>this is a placeholder for the Issue filter</p>
+        <a href="/#/issues">All Issues</a>
+        {' | '}
+        <a href="/#/issues?status=New">Issues</a>
+        {' | '}
+        <a href="/#/issues?status=Assigned">Assigned Issues</a>
       </div>
     );
   }

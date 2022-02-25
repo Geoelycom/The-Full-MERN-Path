@@ -1,3 +1,5 @@
+/*  eslint object-curly-newline: ["error", "never"] */
+/* eslint-env es6 */
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import IssueList from './IssueList.jsx';
@@ -17,5 +19,3 @@ export default function Contents() {
     </Routes>
   );
 }
-
-// edit/:id
