@@ -1,3 +1,4 @@
+/* eslint import/no-cycle: [0, { ignoreExternal: true}] */
 import React from 'react';
 import IssueRow from './IssueRow.jsx';
 

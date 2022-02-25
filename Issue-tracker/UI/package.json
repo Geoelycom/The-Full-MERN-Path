@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/Geoelycom/The-Full-MERN-Path/tree/main#readme",
   "dependencies": {
+    "@ungap/url-search-params": "^0.2.2",
     "axios": "^0.24.0",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.19.0",
