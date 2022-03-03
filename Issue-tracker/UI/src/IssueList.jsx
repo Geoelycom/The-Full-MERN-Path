@@ -1,67 +1,73 @@
 /* eslint "react/react-in-jsx-scope": "off" */
 /* eslint "react/jsx-no-undef": "off" */
-import React from 'react';
+/* eslint-disable react/jsx-no-bind */
+/* eslint "react/react-in-jsx-scope": "off" */
+/* eslint "react/jsx-no-undef": "off" */
+
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import URLSearchParams from '@ungap/url-search-params';
 import 'whatwg-fetch';
 import Issuefilter from './IssueFilter.jsx';
 import IssueTable from './IssueTable.jsx';
 import IssueAdd from './IssueAdd.jsx';
 import graphQLFetch from './graphQLFetch.js';
 
-export default class IssueList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      issues: [],
-    };
-    this.createIssue = this.createIssue.bind(this);
-  }
 
-  componentDidMount() {
-    this.loadData();
-  }
+function loadData() {
+  return ` query issueList($status: StatusType ) {
+     issueList (status: $status) {
+       id
+       title
+       status
+       owner
+       created
+       effort
+       due
+     }
+}`;
+}
 
-  async loadData() {
-    const query = ` query {
-        issueList {
-          id
-          title
-          status
-          owner
-          created
-          effort
-          due
-        }
-      }`;
-
-    const data = await graphQLFetch(query);
-    if (data) {
-      this.setState({ issues: data.issueList });
+export default function IssueList() {
+  const [issues, updateIssues] = useState([]);
+  const location = useLocation();
+  const { search } = location;
+  const params = new URLSearchParams(search);
+  const loadIssues = async () => {
+    const vars = {};
+    if (params.get('status')) {
+      vars.status = params.get('status');
     }
-  }
+    const data = await graphQLFetch(loadData(), vars);
+    if (data) {
+      updateIssues(data.issueList);
+    }
+  };
 
-  async createIssue(issue) {
+  useEffect(() => {
+    loadIssues();
+  }, [location]);
+
+  async function createIssue(issue) {
     const query = ` mutation issueAdd($issue: IssueInputs!) {
-           issueAdd(issue: $issue){
-             id
-           }
-      }`;
-
+      issueAdd(issue: $issue){
+        id
+      }
+    }`;
     const data = await graphQLFetch(query, { issue });
     if (data) {
-      this.loadData();
+      loadData();
     }
   }
 
-  render() {
-    return (
-      <React.Fragment>
-        <h1>Issue Tracker</h1>
-        <Issuefilter />
-        <hr />
-        <IssueTable issues={this.state.issues} />
-        <hr />
-        <IssueAdd createIssue={this.createIssue} />
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <h1> Issue Tracker</h1>
+      <Issuefilter />
+      <hr />
+      <IssueTable issue={issues} />
+      <hr />
+      <IssueAdd createIssue={createIssue} />
+    </React.Fragment>
+  );
 }

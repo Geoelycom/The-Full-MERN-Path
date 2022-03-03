@@ -40,7 +40,6 @@ function testWithCallbacks(callback) {
   });
 }
 
-
 async function testWithAsync() {
   console.log('\n --- testWithAsync ---');
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });

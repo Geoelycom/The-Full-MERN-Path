@@ -21,12 +21,12 @@ input IssueInputs{
 #### Top level declarations
 type Query {
       about: String!
-      issueList: [Issue!]!
+      issueList(status: StatusType): [Issue!]!
       }
 
 type Mutation {
       setAboutMessage(message: String!): String
-      issueAdd(issue: IssueInputs !) : Issue!
+      issueAdd(issue: IssueInputs!): Issue!
       }
 
 type Issue {
