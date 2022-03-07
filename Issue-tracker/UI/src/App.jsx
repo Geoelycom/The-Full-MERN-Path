@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import 'whatwg-fetch';
 import React from 'react';
-import { HashRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import Page from './Page.jsx';
 
