@@ -1,8 +1,10 @@
+/* eslint-disable object-curly-newline */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 function IssueRow(props) {
   const { issue } = props;
+  const selectLocation = { pathname: `/issues/${issue.id}` };
   return (
     <tr>
       <td>{issue.id}</td>
@@ -12,9 +14,14 @@ function IssueRow(props) {
       <td>{issue.effort}</td>
       <td>{issue.due ? issue.due.toDateString() : ''}</td>
       <td>{issue.title}</td>
-      <td><Link to={`/edit/${issue.id}`}>Edit</Link></td>
+      <td>
+        <Link to={`/edit/${issue.id}`}>Edit</Link>
+        {' | '}
+        <NavLink to={selectLocation}>Select</NavLink>
+      </td>
     </tr>
   );
 }
+
 
 export default IssueRow;

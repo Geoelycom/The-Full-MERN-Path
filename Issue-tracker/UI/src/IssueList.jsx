@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 /* eslint "react/react-in-jsx-scope": "off" */
 /* eslint "react/jsx-no-undef": "off" */
 /* eslint-disable react/jsx-no-bind */
@@ -5,12 +6,13 @@
 /* eslint "react/jsx-no-undef": "off" */
 
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Route, Routes } from 'react-router-dom';
 import URLSearchParams from '@ungap/url-search-params';
 import 'whatwg-fetch';
 import Issuefilter from './IssueFilter.jsx';
 import IssueTable from './IssueTable.jsx';
 import IssueAdd from './IssueAdd.jsx';
+import IssueDetail from './IssueDetail.jsx';
 import graphQLFetch from './graphQLFetch.js';
 
 
@@ -46,7 +48,7 @@ export default function IssueList() {
 
   useEffect(() => {
     loadIssues();
-  }, [location]);
+  }, [location]); // only Rerun component when the location from the browser changes
 
   async function createIssue(issue) {
     const query = ` mutation issueAdd($issue: IssueInputs!) {
@@ -68,6 +70,10 @@ export default function IssueList() {
       <IssueTable issue={issues} />
       <hr />
       <IssueAdd createIssue={createIssue} />
+      <hr />
+      <Routes>
+        <Route path="/:id" element={<IssueDetail />} />
+      </Routes>
     </React.Fragment>
   );
 }

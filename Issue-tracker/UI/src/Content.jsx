@@ -10,12 +10,10 @@ export default function Contents() {
   return (
     <Routes>
       <Route path="/" element={<Navigate replace to="/issues" />} />
-      <Route path="/issues" element={<IssueList />} />
+      <Route path="/issues/*" element={<IssueList />} />
       <Route path="/report" element={<IssueReport />} />
       <Route path="*" element={<NotFound />} />
       <Route path="/edit/:id" element={<IssueEdit />} />
     </Routes>
   );
 }
-
-// edit/:id
