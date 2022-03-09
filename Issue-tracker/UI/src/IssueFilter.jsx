@@ -7,11 +7,15 @@ export default function Issuefilter() {
   const navigate = useNavigate();
   const { search } = location;
   const params = new URLSearchParams(search);
-  const [inputStatus, inputStatusUpdate] = useState(params.get('status') || '');
   const [changed, isChanged] = useState(false);
+  const [inputStatus, inputStatusUpdate] = useState(params.get('status') || '');
+  const [effortMin, updateEffortMin] = useState(params.get('effortMin') || '');
+  const [effortMax, updateEffortMax] = useState(params.get('effortMax') || '');
 
   function showOriginalFilter() {
     inputStatusUpdate(params.get('status') || '');
+    updateEffortMin(params.get('effortMin') || '');
+    updateEffortMax(params.get('effortMax') || '');
     isChanged(false);
   }
 
@@ -21,10 +25,36 @@ export default function Issuefilter() {
   }
 
   function applyFilter() {
+    if (inputStatus) {
+      params.set('inputStatus', inputStatus);
+    }
+    if (effortMin) {
+      params.set('effortMin', effortMin);
+    }
+    if (effortMax) {
+      params.set('effortMax', effortMax);
+    }
+    const searchUrl = params.toString() ? `?${params.toString()}` : '';
     navigate({
       pathname: '/issues',
-      search: inputStatus ? `?status=${inputStatus}` : '',
+      search: searchUrl,
     });
+  }
+
+  function onChangeEffortMin(e) {
+    const effortString = e.target.value;
+    if (effortString.match(/^\d*$/)) {
+      updateEffortMin(e.target.value);
+      isChanged(true);
+    }
+  }
+
+  function onChangeEffortMax(e) {
+    const effortString = e.target.value;
+    if (effortString.match(/^\d*$/)) {
+      updateEffortMax(e.target.value);
+      isChanged(true);
+    }
   }
 
   useEffect(() => {
@@ -43,6 +73,21 @@ export default function Issuefilter() {
         <option value="Closed">Closed</option>
       </select>
       {' '}
+      Effort between
+      {' '}
+      <input
+        size={5}
+        value={effortMin}
+        onChange={onChangeEffortMin}
+        placeholder="min"
+      />
+      {' _ '}
+      <input
+        size={5}
+        value={effortMax}
+        onChange={onChangeEffortMax}
+        placeholder="max"
+      />
       <button type="button" onClick={applyFilter}>Apply</button>
       {' '}
       <button type="button" onClick={showOriginalFilter} disabled={!changed}>Reset</button>
