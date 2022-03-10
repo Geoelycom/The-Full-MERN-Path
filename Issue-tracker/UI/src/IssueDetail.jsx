@@ -17,7 +17,7 @@ export default function IssueDetail() {
     if (data) {
       updatedIssue(data.issue);
     } else {
-      updatedIssue({ issue: {} });
+      updatedIssue({});
     }
   };
 

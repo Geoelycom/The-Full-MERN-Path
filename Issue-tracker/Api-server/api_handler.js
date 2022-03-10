@@ -7,7 +7,7 @@ const issue = require('./issue');
 
 const resolvers = {
   Query: {
-    about: () => about.getMessage,
+    about: about.getMessage,
     issueList: issue.list,
     issue: issue.get,
   },

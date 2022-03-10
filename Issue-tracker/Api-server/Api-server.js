@@ -12,7 +12,7 @@ app.use(express.static('public'));
 
 const port = process.env.API_PORT;
 // Using an IIFE  to connect to the database would throw an error  so i had to wrap
-// the async function inside the app.listen as a callback hence running our synchronous activities
+// the async function inside the (app.listen) as a callback hence running our synchronous activities
 app.listen(port, async () => {
   try {
     await connectToDb();
