@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import NumInputs from './NumInputs.jsx';
 import graphQLFetch from './graphQLFetch.js';
 
 export default function IssueEdit() {
   const [issues, updateIssue] = useState({});
   const { id } = useParams();
 
-  function onChange(e) {
-    const { name, value } = e.target;
+  function onChange(e, naturalValue) {
+    const { name, value: textValue } = e.target;
+    const value = naturalValue === undefined ? textValue : naturalValue;
     updateIssue(prevState => ({
       issue: { ...prevState.issue, [name]: value },
     }));
@@ -37,7 +39,6 @@ export default function IssueEdit() {
       const { issue } = data;
       issue.due = issue.due ? issue.due.toDateString() : '';
       issue.created = issue.created ? issue.created.toDateString() : '';
-      issue.effort = issue.effort != null ? issue.effort.toString() : '';
       issue.owner = issue.owner != null ? issue.owner : '';
       issue.description = issue.description != null ? issue.description : '';
       updateIssue(issue);
@@ -90,10 +91,12 @@ export default function IssueEdit() {
           <tr>
             <td>Effort:</td>
             <td>
-              <input
+              <NumInputs
                 name="effort"
                 value={issues.effort || ''}
+                // eslint-disable-next-line react/jsx-no-bind
                 onChange={onChange}
+                key={issues.id}
               />
             </td>
           </tr>
