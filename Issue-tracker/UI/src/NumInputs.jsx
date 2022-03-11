@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function format(num) {
-  return num !== null ? num.toString() : '';
+  return num != null ? num.toString() : '';
 }
 
 function unFormat(str) {
@@ -13,14 +13,14 @@ export default function NumInputs(props) {
   const [value, setValue] = useState(format(props.value));
 
   function onChange(e) {
+    const newVal = e.target.value;
     if (e.target.value.match(/^\d*$/)) {
-      setValue(e.target.value);
+      setValue(newVal);
     }
   }
-
   function onBlur(e) {
-    useState(value);
-    onChange();
+    onChange(e);
+    setValue();
     onChange(e, unFormat(value));
   }
 
@@ -28,7 +28,7 @@ export default function NumInputs(props) {
     <input
       type="text"
       {...props}
-      value={value}
+      value={value || ''}
       onBlur={onBlur}
       onChange={onChange}
     />
