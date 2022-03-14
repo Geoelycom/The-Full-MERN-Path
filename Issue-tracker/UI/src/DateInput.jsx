@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 function displayFormat(date) {
-  return (date != null) ? date.toDateString().substr(0, 10) : '';
+  return (date != null) ? date.toDateString() : '';
 }
 
 function editFormat(date) {
-  return (date != null) ? date.toISOstring().substr(0, 10) : '';
+  return (date != null) ? date.toISOString().substr(0, 10) : '';
 }
 
 function unFormat(str) {
@@ -37,7 +37,7 @@ export default function DateInput(props) {
   }
 
   function onChange(e) {
-    if (e.target.value.match(/^[\d-]*/)) {
+    if (e.target.value.match(/^[\d-]*$/)) {
       updateValue({ value: e.target.value });
     }
   }
