@@ -28,7 +28,7 @@ export default function DateInput(props) {
     const dateValue = unFormat(value);
     const valid = value === '' || dateValue != null;
     if (valid !== oldValid && onValidityChange) {
-      onValidityChange(e, dateValue);
+      onValidityChange(e, valid);
     }
     updateValue({ focused: false, valid });
     if (valid) {
